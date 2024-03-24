@@ -5,6 +5,7 @@ const input = require("fs")
   .trim()
   .split("\n");
 let N = input[0],
+  //set : 순서가 없는 중복되지 않은 데이터의 집합
   N_cards = new Set(input[1].split(" ")),
   M = input[2],
   M_cards = input[3].split(" ");
