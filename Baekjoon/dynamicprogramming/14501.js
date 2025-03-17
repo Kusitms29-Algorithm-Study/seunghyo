@@ -35,3 +35,4 @@ function solution(n, counsel) {
 }
 
 console.log(solution(N, counsel));
+

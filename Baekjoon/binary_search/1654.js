@@ -31,13 +31,8 @@ function action(arr, target) {
     } else {
       right = mid - 1;
     }
-    console.log("mid" + mid);
-    console.log("left" + left);
-    console.log("right" + right);
-    console.log("======\n");
   }
   return answer;
 }
 
-console.log(values);
 console.log(action(values, m));
