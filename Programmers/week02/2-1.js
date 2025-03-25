@@ -16,30 +16,32 @@ function solution(cap, n, deliveries, pickups) {
     // 둘 다 0이면 종료
     if (deliverIdx < 0 && pickIdx < 0) break;
 
-    let currentIdx = deliverIdx > pickIdx ? deliverIdx : pickIdx;
+    let currentIdx = Math.max(deliverIdx, pickIdx);
     answer += (currentIdx + 1) * 2;
 
-    for (let i = currentIdx; i >= 0; i--) {
-      if (deliver === 0) break;
-      if (deliveries[i] > deliver) {
-        deliveries[i] -= deliver;
-        deliver = 0;
-        break;
-      } else {
-        deliver -= deliveries[i];
-        deliveries[i] = 0;
+    for (let i = currentIdx; i >= 0 && (deliver > 0 || pick > 0); i--) {
+      if (deliver > 0) {
+        if (deliveries[i] >= deliver) {
+          deliveries[i] -= deliver;
+          deliver = 0;
+          deliverIdx = i;
+        } else {
+          deliver -= deliveries[i];
+          deliveries[i] = 0;
+          deliverIdx = i - 1;
+        }
       }
-    }
-
-    for (let i = currentIdx; i >= 0; i--) {
-      if (pick === 0) break;
-      if (pickups[i] > pick) {
-        pickups[i] -= pick;
-        pick = 0;
-        break;
-      } else {
-        pick -= pickups[i];
-        pickups[i] = 0;
+      if (pick > 0) {
+        if (pickups[i] >= pick) {
+          pickups[i] -= pick;
+          pick = 0;
+          pickIdx = i;
+          break;
+        } else {
+          pick -= pickups[i];
+          pickups[i] = 0;
+          pickIdx = i - 1;
+        }
       }
     }
   }
