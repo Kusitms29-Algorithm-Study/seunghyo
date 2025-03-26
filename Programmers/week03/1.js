@@ -1,4 +1,4 @@
-//완전범죄
+//완전범죄 - 완전탐색
 function solution(info, n, m) {
   let sumA = n;
   let sumB = m;
