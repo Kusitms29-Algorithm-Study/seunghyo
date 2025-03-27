@@ -1,25 +1,29 @@
 //서버증설횟수
 function solution(players, m, k) {
-  let able = Array(24).fill(-1);
+  let able = Array(24).fill(0);
   let count = 0;
   for (let i = 0; i < 24; i++) {
-    let sum = 0;
-    let server = Math.floor(players[i] / m);
-    console.log(server);
+    let sum = 0; //현재 켜져있는 서버
+    let server = Math.floor(players[i] / m); //필요한 서버의 수
 
     for (let j = 0; j < 24; j++) {
-      if (i - j > k) {
-        able[j] = -1;
-      }
-      if (able[j] > 0) {
+      if (able[j] === 0) {
+        continue;
+      } else if (i - j >= k && able[j] > 0) {
+        //console.log(i, j, able[j], "서버 종료");
+        able[j] = 0;
+      } else if (able[j] > 0) {
         sum += able[j];
       }
     }
     if (players[i] < sum) {
       continue;
+    } else if (sum >= server) {
+      continue;
     } else {
       able[i] = server - sum;
-      count = count + server - sum;
+      count += able[i];
+      console.log(i, able[i]);
     }
   }
   return count;
