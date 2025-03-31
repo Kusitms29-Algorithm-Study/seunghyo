@@ -2,8 +2,9 @@
 function solution(friends, gifts) {
   let answer = 0;
   const len = friends.length;
-  let adj = Array(len).fill(Array(len).fill(0));
-
+  let adj = Array.from({ length: len }, () => Array(len).fill(0));
+  let giftNum = Array.from({ length: len }, () => 0);
+  let max = 0;
   for (let i = 0; i < gifts.length; i++) {
     gifts[i] = gifts[i].split(" ");
   }
@@ -12,6 +13,7 @@ function solution(friends, gifts) {
     let send = -1;
     let get = -1;
     for (let j = 0; j < len; j++) {
+      if (send >= 0 && get >= 0) break;
       if (gifts[i][0] === friends[j]) {
         send = j;
       }
@@ -21,8 +23,33 @@ function solution(friends, gifts) {
     }
     adj[send][get]++;
   }
-  console.log(adj);
-  return answer;
+  //선물지수 계산
+  for (let i = 0; i < len; i++) {
+    let sum = 0;
+    for (let j = 0; j < len; j++) {
+      sum += adj[i][j];
+      sum -= adj[j][i];
+    }
+    giftNum[i] = sum;
+  }
+  //선물 비교
+  for (let i = 0; i < len; i++) {
+    let gifts = 0;
+    for (let j = 0; j < len; j++) {
+      if (adj[i][j] > adj[j][i]) {
+        gifts++;
+      } else if (adj[i][j] === adj[j][i]) {
+        if (giftNum[i] > giftNum[j]) {
+          gifts++;
+        }
+      }
+    }
+    if (max < gifts) {
+      max = gifts;
+    }
+  }
+
+  return max;
 }
 
 console.log(

@@ -6,16 +6,17 @@ function solution(players, m, k) {
     let sum = 0; //현재 켜져있는 서버
     let server = Math.floor(players[i] / m); //필요한 서버의 수
 
+    //기한이 다 된 서버 끄기
     for (let j = 0; j < 24; j++) {
       if (able[j] === 0) {
         continue;
       } else if (i - j >= k && able[j] > 0) {
-        //console.log(i, j, able[j], "서버 종료");
         able[j] = 0;
       } else if (able[j] > 0) {
         sum += able[j];
       }
     }
+
     if (players[i] < sum) {
       continue;
     } else if (sum >= server) {
