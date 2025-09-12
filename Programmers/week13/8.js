@@ -33,7 +33,17 @@ function solution(n, info) {
       dfs(enemyTotal, myTotal, usedArrow, point + 1, arr);
     }
   }
+
   dfs(0, 0, 0, 0, answer);
+
+  function isBetterAnswer(newArr, oldArr) {
+    for (let i = 10; i >= 0; i--) {
+      if (newArr[i] > oldArr[i]) return true;
+      if (newArr[i] < oldArr[i]) return false;
+    }
+    return false;
+  }
+
   return max > 0 ? answer : [-1];
 }
 
