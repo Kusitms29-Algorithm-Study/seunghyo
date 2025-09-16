@@ -1,8 +1,18 @@
-//디펜스 게임
-function solution(n, k, enemy) {
-  var answer = 0;
-
-  return answer;
+function getCombinations(arr, n) {
+  const results = [];
+  function combine(start, combo) {
+    if (combo.length === n) {
+      results.push(combo.slice());
+      return;
+    }
+    for (let i = start; i < arr.length; i++) {
+      combo.push(arr[i]);
+      combine(i + 1, combo);
+      combo.pop();
+    }
+  }
+  combine(0, []);
+  return results;
 }
 
-console.log(solution(7, 3, [4, 2, 4, 5, 3, 3, 1]));
+console.log(getCombinations(["A", "B", "C"], 2));
