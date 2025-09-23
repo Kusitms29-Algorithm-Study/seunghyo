@@ -1,3 +1,4 @@
+//조합 출력
 function getCombinations(arr, n) {
   const results = [];
   function combine(start, combo) {
